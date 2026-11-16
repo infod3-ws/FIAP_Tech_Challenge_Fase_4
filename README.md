@@ -58,7 +58,7 @@ voc/
   ask.py           CLI: perguntar (modo único ou interativo)
   run_examples.py  gera docs/exemplos_perguntas_respostas.md
 tests/             testes offline (embeddings e LLM simulados)
-docs/              exemplos de perguntas/respostas e roteiro do vídeo
+docs/              exemplos de perguntas e respostas
 ```
 
 ## 5. Como instalar e executar
