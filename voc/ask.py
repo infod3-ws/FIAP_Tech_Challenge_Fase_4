@@ -20,7 +20,9 @@ def render(ans: Answer, max_evidences: int = 8) -> str:
     out.append(f"\nRESPOSTA:\n{ans.answer}")
     if ans.evidences:
         # citadas primeiro, depois as demais, mantendo a ordem de relevância
-        ordered = sorted(ans.evidences, key=lambda e: not e.cited)[:max_evidences]
+        cited = [e for e in ans.evidences if e.cited]
+        rest = [e for e in ans.evidences if not e.cited][: max(0, max_evidences - len(cited))]
+        ordered = sorted(cited + rest, key=lambda e: int(e.ref[1:]))
         out.append("\nEVIDÊNCIAS (✔ = citada na resposta):")
         for e in ordered:
             mark = "✔" if e.cited else " "
