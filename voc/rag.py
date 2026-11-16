@@ -108,7 +108,7 @@ def format_context(evidences: list[Evidence]) -> str:
 class VoCRag:
     def __init__(self, vectorstore, llm=None):
         self.vs = vectorstore
-        self.llm = llm or ChatOpenAI(model=config.LLM_MODEL, temperature=0)
+        self.llm = llm or ChatOpenAI(model=config.LLM_MODEL, temperature=0, timeout=60, max_retries=3)
 
     # (1) -------------------------------------------------------------- #
     def plan_query(self, question: str) -> QueryPlan:
