@@ -149,3 +149,9 @@ casos de recusa).
 `python -m pytest` valida limpeza dos dados, construção de filtros, guardrails (fora de escopo,
 evidência insuficiente, recusa do modelo), citações e filtro de nota — com embeddings e LLM
 simulados, sem rede.
+
+## 12. Apresentação Executiva
+
+[Assista à apresentação em vídeo da solução](https://github.com/infod3-ws/FIAP_Tech_Challenge_Fase_4/releases/download/v0.1-fiap-tc4-apresentacao/Apresentacao_Executiva_Tech_Challenge_Fase4.mp4)
+
+O vídeo aborda o problema de negócio, a arquitetura RAG, a preparação da base de avaliações da Olist, a estratégia de recuperação com filtro por nota, uma demonstração ao vivo com as evidências recuperadas, o tratamento de perguntas sem evidência suficiente (Seção 8) e os principais desafios e decisões técnicas (Seção 10).
