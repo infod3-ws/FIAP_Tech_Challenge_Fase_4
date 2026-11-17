@@ -28,16 +28,20 @@ REWRITE_SYSTEM = """Você prepara consultas para uma busca semântica em avalia�
 clientes de um e-commerce brasileiro (Olist, 2016-2018). Analise a pergunta de um gestor e devolva:
 
 - in_scope: true se a pergunta pode ser respondida com avaliações/comentários de clientes \
-(problemas, elogios, entrega, qualidade, atendimento, produtos...). false para qualquer \
-outro assunto (conhecimento geral, previsões, números de vendas, preços, opinião pessoal...).
+(problemas, elogios, padrões, insatisfação, entrega, qualidade, atendimento, produtos...). \
+Perguntas sobre clientes satisfeitos ou insatisfeitos, reclamações ou padrões nas avaliações são SEMPRE true. \
+false somente para assuntos sem relação com avaliações (conhecimento geral, previsões, faturamento, preços...). \
+Na dúvida, use true.
 - search_query: reescreva o tema em português, como um CLIENTE escreveria a avaliação, com \
 termos concretos e sinônimos. Remova palavras analíticas como "principais", "padrões", "mais \
 frequentes". Ex.: "problemas de entrega" -> "produto não chegou, entrega atrasou, demorou \
 muito para receber o pedido".
 - min_score / max_score (1 a 5, ou null): use SOMENTE se a pergunta falar de satisfação ou nota. \
-Reclamações, problemas, insatisfeitos, nota baixa -> max_score=3. Elogios, satisfeitos, \
-nota alta -> min_score=4. Nota explícita (ex.: "nota 1") -> min_score e max_score iguais. \
-Caso contrário, null."""
+min_score é a nota MÍNIMA; max_score é a nota MÁXIMA. \
+Perguntas sobre problemas, reclamações, defeitos, insatisfação, queixas ou nota baixa -> max_score=3 (NUNCA use min_score). \
+Elogios, satisfação, nota alta -> min_score=4 (NUNCA use max_score). \
+Nota explícita (ex.: "nota 1") -> min_score e max_score iguais. \
+Caso contrário, ambos null."""
 
 
 class QueryPlan(BaseModel):
@@ -70,8 +74,9 @@ Regras:
 2. Não use conhecimento externo e não invente fatos. Você vê apenas uma AMOSTRA das avaliações \
 mais relevantes, não a base inteira: NÃO informe percentuais, contagens totais ou rankings \
 exatos. Use linguagem qualitativa ("aparece em várias das avaliações analisadas").
-3. Se as avaliações não permitirem responder à pergunta, responda começando exatamente com \
-"{NO_EVIDENCE}" e explique em uma frase o motivo.
+3. Só responda "NÃO HÁ EVIDÊNCIAS SUFICIENTES" se NENHUMA avaliação tratar do tema perguntado. \
+Se houver avaliações relevantes, resuma os temas que aparecem nelas, mesmo que sejam variados. \
+Se não houver nenhuma, responda começando exatamente com "{NO_EVIDENCE}" e explique em uma frase.
 4. Responda em português, de forma objetiva: no máximo 6 tópicos curtos."""
 
 
